@@ -1,0 +1,181 @@
+// Doubly LL creation, lengthof LL,  insertion -> head, tail, any pos , deletion ->  -> head, tail, any pos 
+
+
+// insertion, traverse, deletion
+#include <iostream>
+using namespace std;
+
+class Node{
+    public: 
+    
+    int data;
+    Node* prev;
+    Node* next;
+    
+    Node(){
+        this->data = 0;
+        this->prev = NULL;
+        this->next = NULL;
+    }
+    Node(int data){
+        this->data = data;
+        this->prev =NULL;
+        this->next = NULL;
+    }
+    ~Node(){
+        cout<<"delete the node"<<this->data<<endl;
+    }
+};
+void print(Node* &head){
+    Node* temp = head;
+    
+    while(temp != NULL){
+        cout<<temp->data<<" ";
+        temp= temp->next;
+    }
+    cout<<endl;
+}
+int getLen(Node* &head){
+    int len = 0;
+    Node* temp= head;
+    
+    while(temp!= NULL){
+        temp = temp->next;
+        len++;
+    }
+    return len;
+}
+void insertAtHead(Node* &head, int data){
+    Node* newNode = new Node(data);
+    
+    newNode->prev = NULL;
+    newNode->next = head;
+    head = newNode;
+    
+    if(head != NULL) head->prev = newNode;
+     head = newNode;
+}
+void insertAtTail(Node* &head, int data){
+    //step 1 new node bna le
+     Node* newNode = new Node(data);
+     //step 3 newNode kanext null kro
+     newNode->next = NULL;
+     
+    if(head == NULL){
+    head = newNode;
+    newNode->prev = NULL;
+    return;
+}
+
+     //step2 tail p lekr aa
+     Node* temp = head;
+     while(temp->next != NULL) temp= temp->next;
+     
+     //step 4 newNode prev ko temp->nextt hoga
+     temp->next = newNode;
+     newNode->prev = temp;
+  
+}
+void insertAtPostion(int position,Node* &head, int data){
+     Node* newNode = new Node(data);
+    
+    //empty list 
+    if(head == NULL){
+        head = newNode;
+        return;
+    }
+    
+    // LL is not empty
+    int len = getLen(head);
+    if(position == 1){
+        insertAtHead(head, data);
+        return;
+    }
+    if(position > len){
+        insertAtTail(head, data);
+        return;
+    }
+    // middle me krna h to 
+    // position findout kro
+     int i = 1;
+    Node* temp = head;
+    
+    while(i < position-1  ){
+        temp = temp->next;
+        i++;
+    }
+    Node* curr = temp->next;
+    
+    temp->next = newNode;
+    newNode->prev = temp;
+    newNode->next = curr;
+    
+    if(curr != NULL)  curr->prev = newNode;
+}
+void deleteNode(Node* &head, int position){
+    // LL empty or not
+    if(head == NULL){
+          cout<<"Nthg to delete"<<endl;
+          return;
+    }
+    // head del krna ho
+    Node*  temp = head;
+    if(position == 1){
+        head = head->next;
+        if(head != NULL) head->prev = NULL;
+        delete temp;
+    }
+    int i = 1;
+    int len = getLen(head);
+    
+    // tail dell krna ho
+    if(len == position){
+        while( temp->next != NULL)temp = temp->next;
+        temp->prev->next = NULL;
+        delete temp;
+        
+    }
+    // midd k koi v node del krna ho
+ 
+    while(i < position){
+        temp = temp->next;
+        i++;
+    } 
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    delete temp;
+    
+}
+int main() {
+    Node* first = new Node(10);
+    Node* second = new Node(20);
+    Node* third = new Node(30);
+    Node* fourth = new Node(40);
+    Node* fifth = new Node(50);
+    
+    first->prev = NULL;
+    first->next = second;
+    
+    second->prev = first;
+    second->next = third;
+    
+    third->prev = second;
+    third->next = fourth;
+    
+    fourth->prev = third;
+    fourth->next = fifth;
+    
+    fifth->prev = fourth;
+    fifth->next = NULL;
+    
+ 
+    insertAtHead(first, 100);
+    insertAtTail(first, 400);
+    insertAtPostion(2, first, 600);
+    deleteNode(first, 3);
+    
+    
+    print(first);
+  
+    return 0;
+}
