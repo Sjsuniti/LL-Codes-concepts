@@ -1,2 +1,10 @@
 1. Middle of LL 
           approach -> using slow fast pointer 
+2. Reverse LL in groups of K 
+          approach -> solve 1 case call recursion, then link head-> next = Recursions's ans , return prev 
+3. Check LL is circular or not  
+          approach -> 2 pointer approach slow, fast pointer 
+4.Detect and delete loop 
+          1. detect 
+          2. return starting point 
+          3. remove 
