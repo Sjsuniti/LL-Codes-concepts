@@ -8,3 +8,8 @@
           1. detect 
           2. return starting point 
           3. remove 
+5. Palindrom check 
+          approach -> how to do ?? 
+                    1. find Mid using 2 pointer 
+                    2. Now reverse from slow->next to NULL using 3 variable
+                    3. start comparison using LOOP head with reverse pointer if diff return false
