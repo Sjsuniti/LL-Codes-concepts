@@ -18,3 +18,5 @@
 8. Remove Duplicate from sorted LL - I && II
           I - approach -> if [curr->next != NULL && curr->val == curr->next->val] then curr->next->next else curr = curr->next { create duplicate then delete dupicate}
           II- approach -> 
+9. Remove LL element with val 
+10. Remove Nth Node from LL 
