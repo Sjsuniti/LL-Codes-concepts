@@ -13,3 +13,8 @@
                     1. find Mid using 2 pointer 
                     2. Now reverse from slow->next to NULL using 3 variable
                     3. start comparison using LOOP head with reverse pointer if diff return false
+6. Add 2 sorted list 
+7. Intersection of LL not sorted
+8. Remove Duplicate from sorted LL - I && II
+          I - approach -> if [curr->next != NULL && curr->val == curr->next->val] then curr->next->next else curr = curr->next { create duplicate then delete dupicate}
+          II- approach -> 
