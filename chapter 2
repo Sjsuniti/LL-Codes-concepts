@@ -179,3 +179,124 @@ int main() {
   
     return 0;
 }
+
+                // double Linked list 
+                
+                #include <iostream>
+                #include <vector>
+                using namespace std;
+                
+                class Node{
+                    public:
+                    int data;
+                    Node* next;
+                    Node* back;
+                
+                    public:
+                Node(int data1){
+                    data = data1;
+                    next = NULL;
+                    back = NULL;
+                }
+                  public:
+                Node (int data1, Node* next1, Node*back1){
+                    data = data1;
+                    next = next1;
+                    back = back1;
+                    }
+                
+                };
+                
+                Node* insertDll(vector<int> &arr){
+                  
+                     Node* head = new Node(arr[0]);
+                     Node* prev = head;
+                
+                    for(int i = 1; i<arr.size(); i++){
+                        Node* temp = new Node(arr[i], NULL, prev);
+                        prev->next = temp;
+                        prev = temp;
+                    }
+                return head;
+                }
+                Node* delete_Head(Node* head){
+                    if(head == NULL) return   NULL;
+                    Node* temp = head;
+                    head = head->next;
+                    if(head != NULL) head->back = NULL;
+                    else {
+                        head = head->next;
+                        head->back = NULL;
+                        temp->next = NULL;
+                        delete temp;
+                    }
+                return head;
+                }
+                Node* delete_Tail(Node* head){
+                    if(head == NULL || head->next == NULL) return NULL;
+                
+                    Node* temp = head;
+                    while(temp->next != NULL){
+                        temp= temp->next;
+                    }
+                       Node* prev = temp->back;
+                        prev->next = NULL;
+                        temp->back = NULL;
+                        delete temp;
+                    return head;
+                }
+                Node* delete_K_Node(Node* head, int k){
+                    if(head == NULL) return NULL;
+                    if(k == 0) return delete_Head(head);
+                
+                    Node* temp = head;
+                    int count = 0;
+                
+                    while(temp != NULL && count < k){
+                        temp = temp->next;
+                        count++;
+                    }
+                    if(temp == NULL) return head;
+                
+                    Node* prev = temp->back;
+                    Node* nextNode = temp->next;
+                
+                    prev->next = nextNode;
+                    if(nextNode != NULL){
+                        nextNode->back = prev;
+                    }
+                
+                    temp->next = NULL;
+                    temp->back = NULL;
+                    delete temp;
+                
+                    return head;
+                }
+                void print(Node* head){
+                    Node* temp = head;
+                    while(temp!= NULL){
+                        cout<< temp->data<< " ";
+                        temp = temp->next;
+                    }
+                }
+                
+                int main(){
+                   vector<int> arr = {10, 20, 30, 40, 50};
+                   Node* head = insertDll(arr);
+                
+                    // Print the doubly linked list
+                    print(head);
+                    cout<< endl;
+                    head = delete_Head(head);
+                    print(head);
+                    head = delete_Tail(head);
+                    cout<<endl;
+                    print(head);
+                    cout<<endl;
+                    head = delete_K_Node(head, 1);
+                    print(head);
+                    
+                return 0;
+                }
+
+
